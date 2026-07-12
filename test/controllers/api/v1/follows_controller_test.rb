@@ -53,6 +53,6 @@ class Api::V1::FollowsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     json = JSON.parse(response.body)
-    assert json["data"]["is_following"]
+    assert json["data"]["isFollowing"]
   end
 end

@@ -54,10 +54,11 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     assert json["data"]["users"].length >= 3
   end
 
-  test "non-admin should not get all users" do
+  test "regular user can get all users" do
+    # Any authenticated user may list users (the frontend users page relies on it)
     get api_v1_users_url, headers: auth_headers_for(@user), as: :json
 
-    assert_response :forbidden
+    assert_response :success
   end
 
   test "admin should update any user" do

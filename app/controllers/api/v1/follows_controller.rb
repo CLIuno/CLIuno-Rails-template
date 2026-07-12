@@ -37,7 +37,7 @@ class Api::V1::FollowsController < ApplicationController
   # GET /api/v1/follows/:user_id/is-following
   def is_following
     is_following = current_user.active_follows.exists?(following: @target_user)
-    render_success({ is_following: is_following })
+    render_success({ isFollowing: is_following })
   end
 
   private

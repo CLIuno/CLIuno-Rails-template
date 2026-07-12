@@ -19,7 +19,8 @@ class Api::V1::AuthController < ApplicationController
 
   # POST /api/v1/auth/login
   def login
-    user = User.active.find_by("username = :login OR email = :login", login: params[:username_or_email])
+    login_param = params[:usernameOrEmail] || params[:username_or_email]
+    user = User.active.find_by("username = :login OR email = :login", login: login_param)
 
     if user&.authenticate(params[:password])
       token = JwtService.encode(user_id: user.id)
@@ -46,7 +47,7 @@ class Api::V1::AuthController < ApplicationController
 
   # POST /api/v1/auth/refresh-token
   def refresh_token
-    token = params[:refresh_token]
+    token = params[:refreshToken] || params[:refresh_token]
     return render_error("Refresh token required", :bad_request) unless token
 
     decoded = JwtService.decode_refresh(token)
@@ -70,11 +71,13 @@ class Api::V1::AuthController < ApplicationController
 
   # POST /api/v1/auth/change-password
   def change_password
-    unless current_user.authenticate(params[:current_password])
+    current_password = params[:oldPassword] || params[:current_password]
+    new_password = params[:newPassword] || params[:new_password]
+    unless current_user.authenticate(current_password)
       return render_error("Current password is incorrect", :unprocessable_entity)
     end
 
-    if current_user.update(password: params[:new_password])
+    if current_user.update(password: new_password)
       render_success({}, "Password changed successfully")
     else
       render_error("Password change failed", :unprocessable_entity, current_user.errors.full_messages)

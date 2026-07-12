@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_admin!, only: %i[index update_user delete_user]
+  before_action :authenticate_admin!, only: %i[update_user delete_user]
   before_action :set_user, only: %i[show update_user delete_user]
 
   # GET /api/v1/users
