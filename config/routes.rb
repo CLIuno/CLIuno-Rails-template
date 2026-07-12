@@ -11,6 +11,14 @@ Rails.application.routes.draw do
       post "auth/refresh-token", to: "auth#refresh_token"
       post "auth/check-token", to: "auth#check_token"
       post "auth/change-password", to: "auth#change_password"
+      post "auth/forgot-password", to: "auth#forgot_password"
+      post "auth/reset-password", to: "auth#reset_password"
+      post "auth/send-verify-email", to: "auth#send_verify_email"
+      post "auth/verify-email", to: "auth#verify_email"
+      post "auth/otp/generate", to: "auth#otp_generate"
+      post "auth/otp/verify", to: "auth#otp_verify"
+      post "auth/otp/validate", to: "auth#otp_validate"
+      post "auth/otp/disable", to: "auth#otp_disable"
 
       # Users
       get "users/current", to: "users#current"

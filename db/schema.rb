@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_01_000007) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_12_180823) do
   create_table "blacklisted_tokens", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "invalidated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
@@ -76,14 +76,19 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_01_000007) do
     t.string "gender"
     t.boolean "is_deleted", default: false
     t.boolean "is_online", default: false
+    t.boolean "is_otp_enabled", default: false
+    t.boolean "is_verified", default: false
     t.string "last_name", null: false
     t.string "nationality"
+    t.string "otp_secret"
     t.string "password_digest", null: false
     t.string "phone"
     t.string "refresh_token"
+    t.string "reset_password_token"
     t.string "role_id"
     t.datetime "updated_at", null: false
     t.string "username", null: false
+    t.string "verify_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["phone"], name: "index_users_on_phone", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
