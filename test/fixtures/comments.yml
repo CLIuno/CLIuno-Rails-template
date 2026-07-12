@@ -1,0 +1,11 @@
+one:
+  id: "comment-one-id-0001"
+  content: Great post!
+  user_id: "user-regular-id-0002"
+  post_id: "post-one-id-0001"
+
+two:
+  id: "comment-two-id-0002"
+  content: Thanks for sharing!
+  user_id: "user-other-id-0003"
+  post_id: "post-one-id-0001"

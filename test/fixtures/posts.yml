@@ -1,0 +1,13 @@
+one:
+  id: "post-one-id-0001"
+  title: First Post
+  content: This is the first post content
+  is_paid: false
+  user_id: "user-regular-id-0002"
+
+two:
+  id: "post-two-id-0002"
+  title: Second Post
+  content: This is the second post content
+  is_paid: false
+  user_id: "user-other-id-0003"

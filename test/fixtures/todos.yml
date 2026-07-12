@@ -1,0 +1,13 @@
+one:
+  id: "todo-one-id-0001"
+  title: Buy groceries
+  description: Milk, eggs, bread
+  is_completed: false
+  user_id: "user-regular-id-0002"
+
+two:
+  id: "todo-two-id-0002"
+  title: Clean house
+  description: Vacuum and mop
+  is_completed: true
+  user_id: "user-regular-id-0002"

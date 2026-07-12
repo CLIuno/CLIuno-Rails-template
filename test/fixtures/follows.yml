@@ -1,0 +1,4 @@
+one:
+  id: "follow-one-id-0001"
+  follower_id: "user-regular-id-0002"
+  following_id: "user-other-id-0003"

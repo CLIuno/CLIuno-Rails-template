@@ -4,13 +4,8 @@
 
 ## Installation
 
-if you want to run the project locally make sure you have installed nodejs, pnpm.
-to install node js go to [nodejs](https://nodejs.org/en/download/)
-to install pnpm run the following command
-
-```bash
-npm install -g pnpm
-```
+if you want to run the project locally make sure you have installed Ruby and Bundler.
+to install Ruby go to [ruby](https://www.ruby-lang.org/en/downloads/)
 
 if you want to run the project using docker make sure you have installed docker.
 
@@ -50,15 +45,22 @@ git clone https://github.com/CLIuno/CLIuno-Rails-template.git
 then run the following command
 
 ```bash
-pnpm install
+bundle install
 ```
 
 ## Usage
 
-to run the project run the following command
+after installing the dependencies you can run the project using the following command to migrate the database
 
 ```bash
-pnpm dev
+bin/rails db:migrate
+bin/rails db:seed
+```
+
+then you run the project using the following command
+
+```bash
+bin/rails server
 ```
 
 ## Features
@@ -67,18 +69,23 @@ list of features that already implemented:
 
 | Status             | Feature                       |
 | ------------------ | ----------------------------- |
-| [ ]                | Auth routes                   |
-| [ ]                | User routes                   |
-| [ ]                | Role routes                   |
-| [ ]                | Post routes                   |
-| [ ]                | User Role routes              |
-| [ ]                | CI/CD with GitHub Actions     |
-| :white_check_mark: | Mailer                        |
+| :white_check_mark: | Auth routes                   |
+| :white_check_mark: | User routes                   |
+| :white_check_mark: | Role routes                   |
+| :white_check_mark: | Post routes                   |
+| :white_check_mark: | Comment routes                |
+| :white_check_mark: | Todo routes                   |
+| :white_check_mark: | Follow routes                 |
+| :white_check_mark: | CI/CD with GitHub Actions     |
 | :white_check_mark: | Logging                       |
-| [ ]                | Dockerize                     |
+| :white_check_mark: | Dockerize                     |
 | [ ]                | Kubernetes                    |
-| [ ]                | Soft delete                   |
+| :white_check_mark: | Soft delete                   |
 | :white_check_mark: | SQLite database               |
+| :white_check_mark: | JWT authentication            |
+| :white_check_mark: | Token blacklisting            |
+| :white_check_mark: | CORS enabled                  |
+| :white_check_mark: | Unit tests                    |
 | [ ]                | Fully documentation           |
 | :white_check_mark: | Postman collection just basic |
 
@@ -98,6 +105,88 @@ You will get more features if you buy the full version and you can use it for co
 | :white_check_mark: | Redis cache                  |
 | :white_check_mark: | File upload                  |
 | :white_check_mark: | Fully unit test              |
+
+## list of endpoints
+
+### Auth
+
+| Status             | Endpoint Description | Method | Path                              |
+| ------------------ | -------------------- | ------ | --------------------------------- |
+| :white_check_mark: | Register             | POST   | `/api/v1/auth/register`           |
+| :white_check_mark: | Login                | POST   | `/api/v1/auth/login`              |
+| :white_check_mark: | Logout               | POST   | `/api/v1/auth/logout`             |
+| :white_check_mark: | Refresh Token        | POST   | `/api/v1/auth/refresh-token`      |
+| :white_check_mark: | Check Token          | POST   | `/api/v1/auth/check-token`        |
+| :white_check_mark: | Change Password      | POST   | `/api/v1/auth/change-password`    |
+
+### Users
+
+| Status             | Endpoint Description | Method | Path                                    |
+| ------------------ | -------------------- | ------ | --------------------------------------- |
+| :white_check_mark: | Get Current User     | GET    | `/api/v1/users/current`                 |
+| :white_check_mark: | Update Current User  | PATCH  | `/api/v1/users/current`                 |
+| :white_check_mark: | Delete Current User  | DELETE | `/api/v1/users/current`                 |
+| :white_check_mark: | Get By Username      | GET    | `/api/v1/users/username/:username`      |
+| :white_check_mark: | Get User Posts       | GET    | `/api/v1/users/posts`                   |
+| :white_check_mark: | Get User Role        | GET    | `/api/v1/users/role`                    |
+| :white_check_mark: | List All Users       | GET    | `/api/v1/users`                         |
+| :white_check_mark: | Get User By ID       | GET    | `/api/v1/users/:id`                     |
+| :white_check_mark: | Admin Update User    | PATCH  | `/api/v1/users/:id`                     |
+| :white_check_mark: | Admin Delete User    | DELETE | `/api/v1/users/:id`                     |
+
+### Roles
+
+| Status             | Endpoint Description | Method | Path                          |
+| ------------------ | -------------------- | ------ | ----------------------------- |
+| :white_check_mark: | List Roles           | GET    | `/api/v1/roles`               |
+| :white_check_mark: | Create Role          | POST   | `/api/v1/roles`               |
+| :white_check_mark: | Get Role             | GET    | `/api/v1/roles/:id`           |
+| :white_check_mark: | Update Role          | PATCH  | `/api/v1/roles/:id`           |
+| :white_check_mark: | Delete Role          | DELETE | `/api/v1/roles/:id`           |
+| :white_check_mark: | Users By Role        | GET    | `/api/v1/roles/:id/users`     |
+
+### Posts
+
+| Status             | Endpoint Description  | Method | Path                                       |
+| ------------------ | --------------------- | ------ | ------------------------------------------ |
+| :white_check_mark: | List Posts             | GET    | `/api/v1/posts`                            |
+| :white_check_mark: | Current User Posts     | GET    | `/api/v1/posts/current-user`               |
+| :white_check_mark: | Create Post            | POST   | `/api/v1/posts`                            |
+| :white_check_mark: | Get Post               | GET    | `/api/v1/posts/:id`                        |
+| :white_check_mark: | Update Post            | PATCH  | `/api/v1/posts/:id`                        |
+| :white_check_mark: | Delete Post            | DELETE | `/api/v1/posts/:id`                        |
+| :white_check_mark: | Get Post Author        | GET    | `/api/v1/posts/:id/user`                   |
+
+### Comments
+
+| Status             | Endpoint Description | Method | Path                                             |
+| ------------------ | -------------------- | ------ | ------------------------------------------------ |
+| :white_check_mark: | List Comments        | GET    | `/api/v1/posts/:post_id/comments`                |
+| :white_check_mark: | Create Comment       | POST   | `/api/v1/posts/:post_id/comments`                |
+| :white_check_mark: | Update Comment       | PATCH  | `/api/v1/posts/:post_id/comments/:id`            |
+| :white_check_mark: | Delete Comment       | DELETE | `/api/v1/posts/:post_id/comments/:id`            |
+
+### Todos
+
+| Status             | Endpoint Description | Method | Path                              |
+| ------------------ | -------------------- | ------ | --------------------------------- |
+| :white_check_mark: | List Todos           | GET    | `/api/v1/todos`                   |
+| :white_check_mark: | Current User Todos   | GET    | `/api/v1/todos/current-user`      |
+| :white_check_mark: | Create Todo          | POST   | `/api/v1/todos`                   |
+| :white_check_mark: | Get Todo             | GET    | `/api/v1/todos/:id`               |
+| :white_check_mark: | Update Todo          | PATCH  | `/api/v1/todos/:id`               |
+| :white_check_mark: | Delete Todo          | DELETE | `/api/v1/todos/:id`               |
+| :white_check_mark: | Toggle Todo          | PATCH  | `/api/v1/todos/:id/toggle`        |
+
+### Follows
+
+| Status             | Endpoint Description | Method | Path                                       |
+| ------------------ | -------------------- | ------ | ------------------------------------------ |
+| :white_check_mark: | Follow User          | POST   | `/api/v1/follows/:user_id/follow`          |
+| :white_check_mark: | Unfollow User        | DELETE | `/api/v1/follows/:user_id/follow`          |
+| :white_check_mark: | Get Followers        | GET    | `/api/v1/follows/:user_id/followers`       |
+| :white_check_mark: | Get Following        | GET    | `/api/v1/follows/:user_id/following`       |
+| :white_check_mark: | Is Following         | GET    | `/api/v1/follows/:user_id/is-following`    |
 | :white_check_mark: | Database Factory             |
 | :white_check_mark: | Make use of Enums            |
 | :white_check_mark: | GraphQL (Optional)           |

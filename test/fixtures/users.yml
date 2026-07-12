@@ -1,0 +1,32 @@
+admin:
+  id: "user-admin-id-0001"
+  username: adminuser
+  first_name: Admin
+  last_name: User
+  email: admin@example.com
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  is_online: false
+  is_deleted: false
+  role_id: "role-admin-id-0001"
+
+regular:
+  id: "user-regular-id-0002"
+  username: regularuser
+  first_name: Regular
+  last_name: User
+  email: regular@example.com
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  is_online: false
+  is_deleted: false
+  role_id: "role-user-id-0002"
+
+other:
+  id: "user-other-id-0003"
+  username: otheruser
+  first_name: Other
+  last_name: User
+  email: other@example.com
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  is_online: false
+  is_deleted: false
+  role_id: "role-user-id-0002"
