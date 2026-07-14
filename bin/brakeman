@@ -2,6 +2,8 @@
 require "rubygems"
 require "bundler/setup"
 
-ARGV.unshift("--ensure-latest")
+# Note: the default Rails binstub injects "--ensure-latest", which exits non-zero
+# whenever a newer brakeman is published — that makes CI break on upstream releases
+# rather than on real findings. Dependabot keeps the gem current instead.
 
 load Gem.bin_path("brakeman", "brakeman")
