@@ -45,3 +45,9 @@ group :development, :test do
 end
 
 gem "rotp", "~> 6.3"
+
+# Formerly default gems, extracted from the stdlib — declare them explicitly so
+# Bundler installs them into the bundle on Ruby 3.4+ (mail/actionmailer need net-smtp).
+gem "net-smtp", require: false
+gem "net-pop", require: false
+gem "net-imap", require: false
