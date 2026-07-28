@@ -82,11 +82,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def current_user_params
-    params.permit(:first_name, :last_name, :date_of_birth, :gender, :nationality, :phone)
+    params.permit(:first_name, :last_name, :date_of_birth, :gender, :nationality, :phone,
+                  :avatar_url)
   end
 
   def admin_user_params
     params.permit(:first_name, :last_name, :username, :email, :phone, :date_of_birth,
-                  :gender, :nationality, :role_id, :is_online, :is_deleted)
+                  :gender, :nationality, :avatar_url, :role_id, :is_online, :is_deleted)
   end
 end

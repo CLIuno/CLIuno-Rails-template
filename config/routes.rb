@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       post "auth/otp/disable", to: "auth#otp_disable"
 
       # Users
+      post "uploads/image", to: "uploads#image"
+
       get "users/current", to: "users#current"
       patch "users/current", to: "users#update_current"
       delete "users/current", to: "users#delete_current"

@@ -58,6 +58,9 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def post_params
-    params.permit(:title, :content, :image_url, :is_paid)
+    # frontends may send either casing; image_url is what goes back out
+    permitted = params.permit(:title, :content, :image_url, :imageUrl, :is_paid)
+    permitted[:image_url] = permitted.delete(:imageUrl) if permitted[:image_url].blank? && permitted[:imageUrl].present?
+    permitted.except(:imageUrl)
   end
 end
