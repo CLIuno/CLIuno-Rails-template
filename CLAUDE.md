@@ -37,3 +37,16 @@ bundle exec rubocop                      # lint (rails-omakase)
 
 rubocop-rails-omakase; conventional commits; controller tests in
 `test/controllers/api/v1/` assert contract shapes — update them with any envelope change.
+
+## AI agents (Claude Code and friends)
+
+- **Check the CLIuno skills first**: `npx cliuno@latest skills status` — if any is
+  `missing`/`outdated`, run `npx cliuno@latest skills install` (adds `.claude/skills/cliuno-*`:
+  the generator workflow, the scaffold guide, and the shared REST contract).
+- **Generate resources, don't hand-write them**:
+  `npx cliuno@latest make:resource Product --fields name:string,price:number,inStock:boolean`
+  creates `app/models/product.rb`, `db/migrate/<timestamp>_create_products.rb`, `app/controllers/api/v1/products_controller.rb`, `test/fixtures/products.yml`, `test/controllers/api/v1/products_controller_test.rb`, `test/models/product_test.rb` and registers it in `config/routes.rb`, `app/models/user.rb`, following this
+  template's conventions and the `{status, message, data}` contract. `--dry-run` previews,
+  re-running never duplicates registrations, `--force` overwrites.
+- Single pieces: `make:model` (→ `bin/rails generate model`), `make:controller` (→ `bin/rails generate controller`), `make:migration` (→ `bin/rails generate migration`), `make:test`. `npx cliuno@latest make` lists them.
+- Then edit fields/business logic only, and run the gates above.
