@@ -1,6 +1,7 @@
 class Api::V1::TodosController < ApplicationController
   before_action :authenticate_user!
   before_action :set_todo, only: %i[show update destroy toggle]
+  before_action :authorize_owner!, only: %i[update destroy toggle]
 
   # GET /api/v1/todos
   def index
@@ -60,5 +61,11 @@ class Api::V1::TodosController < ApplicationController
 
   def todo_params
     params.permit(:title, :description, :is_completed)
+  end
+
+  def authorize_owner!
+    return if @todo.user_id == current_user.id
+
+    render_forbidden("You can only modify your own todos")
   end
 end

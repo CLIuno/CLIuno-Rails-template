@@ -49,4 +49,15 @@ class Api::V1::CommentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
   end
+
+  test "should not update or delete another user's comment" do
+    other = users(:other)
+    patch api_v1_post_comment_url(@post, @comment), params: { content: "Hijacked" },
+          headers: auth_headers_for(other), as: :json
+    assert_response :forbidden
+    assert_no_difference("Comment.count") do
+      delete api_v1_post_comment_url(@post, @comment), headers: auth_headers_for(other), as: :json
+    end
+    assert_response :forbidden
+  end
 end

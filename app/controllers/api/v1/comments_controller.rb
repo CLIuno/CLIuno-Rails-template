@@ -2,6 +2,7 @@ class Api::V1::CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post
   before_action :set_comment, only: %i[update destroy]
+  before_action :authorize_owner!, only: %i[update destroy]
 
   # GET /api/v1/posts/:post_id/comments
   def index
@@ -49,5 +50,11 @@ class Api::V1::CommentsController < ApplicationController
 
   def comment_params
     params.permit(:content)
+  end
+
+  def authorize_owner!
+    return if @comment.user_id == current_user.id
+
+    render_forbidden("You can only modify your own comments")
   end
 end
