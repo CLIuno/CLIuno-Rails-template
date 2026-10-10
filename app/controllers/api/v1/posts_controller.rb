@@ -1,6 +1,7 @@
 class Api::V1::PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: %i[show update destroy user]
+  before_action :authorize_owner!, only: %i[update destroy]
 
   # GET /api/v1/posts
   def index
@@ -62,5 +63,11 @@ class Api::V1::PostsController < ApplicationController
     permitted = params.permit(:title, :content, :image_url, :imageUrl, :is_paid)
     permitted[:image_url] = permitted.delete(:imageUrl) if permitted[:image_url].blank? && permitted[:imageUrl].present?
     permitted.except(:imageUrl)
+  end
+
+  def authorize_owner!
+    return if @post.user_id == current_user.id
+
+    render_forbidden("You can only modify your own posts")
   end
 end

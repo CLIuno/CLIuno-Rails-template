@@ -70,4 +70,17 @@ class Api::V1::TodosControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
   end
+
+  test "should not update or delete another user's todo" do
+    other = users(:other)
+    patch api_v1_todo_url(@todo), params: { title: "Hijacked" }, headers: auth_headers_for(other), as: :json
+    assert_response :forbidden
+    patch toggle_api_v1_todo_url(@todo), headers: auth_headers_for(other), as: :json
+    assert_response :forbidden
+    assert_no_difference("Todo.count") do
+      delete api_v1_todo_url(@todo), headers: auth_headers_for(other), as: :json
+    end
+    assert_response :forbidden
+    assert_not_equal "Hijacked", @todo.reload.title
+  end
 end

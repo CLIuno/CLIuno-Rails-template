@@ -68,4 +68,14 @@ class Api::V1::PostsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
   end
+
+  test "should not update or delete another user's post" do
+    other = users(:other)
+    patch api_v1_post_url(@post), params: { title: "Hijacked" }, headers: auth_headers_for(other), as: :json
+    assert_response :forbidden
+    assert_no_difference("Post.count") do
+      delete api_v1_post_url(@post), headers: auth_headers_for(other), as: :json
+    end
+    assert_response :forbidden
+  end
 end
